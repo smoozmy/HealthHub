@@ -55,11 +55,37 @@ final class LoginViewController: UIViewController {
         return element
     }()
  
+    private lazy var loginButtonStackView: UIStackView = {
+        let element = UIStackView()
+        element.axis = .horizontal
+        element.distribution = .fillEqually
+        
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    private lazy var spacer1: UIView = {
+        let element = UIView()
+        
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+    
+    private lazy var spacer2: UIView = {
+        let element = UIView()
+        
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
     
     private lazy var loginButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle("Войти", for: .normal)
-        element.backgroundColor = .lightGray
+        element.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        element.backgroundColor = .lightText
+        element.layer.cornerRadius = 15
+        element.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        element.tintColor = .gray
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -68,6 +94,9 @@ final class LoginViewController: UIViewController {
     private lazy var forgottenPasswordButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle("Вы забыли пароль?", for: .normal)
+        element.addTarget(self, action: #selector(forgottenPasswordButtonTapped), for: .touchUpInside)
+        element.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        element.setTitleColor(.systemIndigo, for: .normal)
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -76,6 +105,8 @@ final class LoginViewController: UIViewController {
     private lazy var noAccountLabel: UILabel = {
         let element = UILabel()
         element.text = "Не зарегистрированы?"
+        element.textAlignment = .center
+        element.font = .systemFont(ofSize: 16)
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -84,6 +115,9 @@ final class LoginViewController: UIViewController {
     private lazy var createAccountButton: UIButton = {
         let element = UIButton(type: .system)
         element.setTitle("Создать учетную запись", for: .normal)
+        element.addTarget(self, action: #selector(createAccountButtonTapped), for: .touchUpInside)
+        element.setTitleColor(.systemIndigo, for: .normal)
+        element.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -106,13 +140,28 @@ final class LoginViewController: UIViewController {
         mainStackView.addArrangedSubview(loginLabel)
         mainStackView.addArrangedSubview(emailTextField)
         mainStackView.addArrangedSubview(passwordTextField)
-        mainStackView.addArrangedSubview(loginButton)
+        mainStackView.addArrangedSubview(loginButtonStackView)
+        loginButtonStackView.addArrangedSubview(spacer1)
+        loginButtonStackView.addArrangedSubview(loginButton)
+        loginButtonStackView.addArrangedSubview(spacer2)
         mainStackView.addArrangedSubview(forgottenPasswordButton)
         mainStackView.addArrangedSubview(noAccountLabel)
         mainStackView.addArrangedSubview(createAccountButton)
     }
     
     // MARK: - Actions
+    
+    @objc private func loginButtonTapped() {
+        print("LoginVC: Кнопка Войти нажата")
+    }
+    
+    @objc private func forgottenPasswordButtonTapped() {
+        print("LoginVC: Кнопка Забыли пароль нажата")
+    }
+    
+    @objc private func createAccountButtonTapped() {
+        print("LoginVC: Кнопка Создать УЗ нажата")
+    }
     
 }
 
@@ -136,10 +185,10 @@ extension LoginViewController {
             emailTextField.heightAnchor.constraint(equalToConstant: .init(60)),
             passwordTextField.heightAnchor.constraint(equalToConstant: .init(60)),
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16),
-            loginButton.heightAnchor.constraint(equalToConstant: .init(50)),
+            loginButtonStackView.heightAnchor.constraint(equalToConstant: .init(50)),
             
-            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 60),
-            forgottenPasswordButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 50),
+            loginButtonStackView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 60),
+            forgottenPasswordButton.topAnchor.constraint(equalTo: loginButtonStackView.bottomAnchor, constant: 50),
             
             noAccountLabel.bottomAnchor.constraint(equalTo: createAccountButton.topAnchor)
 
