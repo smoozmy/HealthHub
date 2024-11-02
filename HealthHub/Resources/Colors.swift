@@ -7,11 +7,12 @@ struct Colors {
         
         gradientLayer.colors = [
 //            UIColor.systemIndigo.cgColor,
-            UIColor.systemMint.cgColor,
-            UIColor.systemBlue.cgColor,
-            UIColor.purple.cgColor,
-            UIColor.cyan.cgColor,
-            UIColor.systemMint.cgColor,
+            UIColor.systemCyan.cgColor,
+            UIColor.systemIndigo.cgColor,
+            UIColor.systemRed.cgColor,
+            UIColor.systemRed.cgColor,
+            UIColor.systemPink.cgColor,
+            UIColor.systemCyan.cgColor,
             
 //            UIColor.systemIndigo.cgColor
         ]

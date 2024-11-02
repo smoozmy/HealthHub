@@ -16,7 +16,8 @@ final class LoginViewController: UIViewController {
     
     private lazy var mainStackView: UIStackView = {
         let element = UIStackView()
-        element.backgroundColor = .red
+        element.axis = .vertical
+        element.distribution = .equalCentering
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -36,6 +37,9 @@ final class LoginViewController: UIViewController {
     
     private lazy var emailTextField: UITextField = {
         let element = UITextField()
+        element.placeholder = "Введи email"
+        element.backgroundColor = .white
+        element.layer.cornerRadius = 12
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -43,13 +47,19 @@ final class LoginViewController: UIViewController {
     
     private lazy var passwordTextField: UITextField = {
         let element = UITextField()
+        element.placeholder = "Введи пароль"
+        element.backgroundColor = .white
+        element.layer.cornerRadius = 12
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
+ 
     
     private lazy var loginButton: UIButton = {
         let element = UIButton(type: .system)
+        element.setTitle("Войти", for: .normal)
+        element.backgroundColor = .lightGray
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -57,6 +67,7 @@ final class LoginViewController: UIViewController {
     
     private lazy var forgottenPasswordButton: UIButton = {
         let element = UIButton(type: .system)
+        element.setTitle("Вы забыли пароль?", for: .normal)
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -64,6 +75,7 @@ final class LoginViewController: UIViewController {
     
     private lazy var noAccountLabel: UILabel = {
         let element = UILabel()
+        element.text = "Не зарегистрированы?"
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -71,6 +83,7 @@ final class LoginViewController: UIViewController {
     
     private lazy var createAccountButton: UIButton = {
         let element = UIButton(type: .system)
+        element.setTitle("Создать учетную запись", for: .normal)
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -117,6 +130,18 @@ extension LoginViewController {
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            loginLabel.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4),
+            
+            emailTextField.heightAnchor.constraint(equalToConstant: .init(60)),
+            passwordTextField.heightAnchor.constraint(equalToConstant: .init(60)),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16),
+            loginButton.heightAnchor.constraint(equalToConstant: .init(50)),
+            
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 60),
+            forgottenPasswordButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 50),
+            
+            noAccountLabel.bottomAnchor.constraint(equalTo: createAccountButton.topAnchor)
 
         ])
     }
