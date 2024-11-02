@@ -26,7 +26,8 @@
 		6FDDFFF62CD61F950068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ViewController.swift,
+				LoginViewController.swift,
+				RegistrationViewController.swift,
 			);
 			target = 6FDDFFD62CD61B040068FC63 /* HealthHub */;
 		};
