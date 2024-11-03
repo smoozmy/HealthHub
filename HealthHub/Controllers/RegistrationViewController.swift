@@ -2,12 +2,13 @@ import UIKit
 
 final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
-    // MARK: - UI and Lyfe Cycle
+    var gender = true
+    
+    // MARK: - UI and Lifecycle
     
     private lazy var bgView: UIView = {
         let element = UIView()
         element.backgroundColor = .white30
-        
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -16,7 +17,7 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
         let element = UIStackView()
         element.axis = .vertical
         element.distribution = .equalCentering
-        
+        element.spacing = 16
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -24,95 +25,47 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     private lazy var helloTextLabel: UILabel = {
         let element = UILabel()
         element.text = "Привет!"
-        
+        element.textAlignment = .center
+        element.font = .systemFont(ofSize: 22, weight: .semibold)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
     
     private lazy var descriptionTextLabel: UILabel = {
         let element = UILabel()
-        element.text = "Пройди регистрацию \nи настрой свою цель"
-        
+        element.text = "Пройди регистрацию\nи настрой свою цель"
+        element.textAlignment = .center
+        element.font = .systemFont(ofSize: 18, weight: .medium)
+        element.numberOfLines = 0
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
     
-    private lazy var nameTextField: UITextField = {
-        let element = UITextField()
-        element.placeholder = "Введи свое имя"
+    private func createTextField(placeholder: String) -> UITextField {
+        let textField = UITextField()
+        textField.placeholder = placeholder
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 12
+        textField.returnKeyType = .done
+        textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: element.frame.height))
-        element.leftView = leftPaddingView
-        element.leftViewMode = .always
-        
-        element.backgroundColor = .white
-        element.layer.cornerRadius = 12
-        
-        element.returnKeyType = .done
-        element.delegate = self
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: textField.frame.height))
+        textField.leftView = leftPaddingView
+        textField.leftViewMode = .always
+        return textField
+    }
     
-    private lazy var emailTextField: UITextField = {
-        let element = UITextField()
-        element.placeholder = "Укажи email"
-        
-        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: element.frame.height))
-        element.leftView = leftPaddingView
-        element.leftViewMode = .always
-        
-        element.backgroundColor = .white
-        element.layer.cornerRadius = 12
-        
-        element.returnKeyType = .done
-        element.delegate = self
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private lazy var passwordTextField: UITextField = {
-        let element = UITextField()
-        element.placeholder = "Придумай пароль"
-        
-        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: element.frame.height))
-        element.leftView = leftPaddingView
-        element.leftViewMode = .always
-        
-        element.backgroundColor = .white
-        element.layer.cornerRadius = 12
-        
-        element.returnKeyType = .done
-        element.delegate = self
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private lazy var passwordDoubleTextField: UITextField = {
-        let element = UITextField()
-        element.placeholder = "Повтори пароль"
-        
-        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: element.frame.height))
-        element.leftView = leftPaddingView
-        element.leftViewMode = .always
-        
-        element.backgroundColor = .white
-        element.layer.cornerRadius = 12
-        
-        element.returnKeyType = .done
-        element.delegate = self
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
+    private lazy var nameTextField = createTextField(placeholder: "Введи свое имя")
+    private lazy var emailTextField = createTextField(placeholder: "Укажи email")
+    private lazy var passwordTextField = createTextField(placeholder: "Придумай пароль")
+    private lazy var passwordDoubleTextField = createTextField(placeholder: "Повтори пароль")
     
     private lazy var genderLabel: UILabel = {
         let element = UILabel()
         element.text = "Выбери пол"
-        
+        element.textAlignment = .center
+        element.font = .systemFont(ofSize: 16, weight: .medium)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -120,69 +73,44 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     private lazy var genderButtonStackView: UIStackView = {
         let element = UIStackView()
         element.axis = .horizontal
-        
+        element.distribution = .fillEqually
+        element.spacing = 10
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
     
     private lazy var maleButton: UIButton = {
-        let element = UIButton(type: .system)
-        element.setTitle("Мужской", for: .normal)
-        element.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-        element.backgroundColor = .lightText
-        element.layer.cornerRadius = 15
-        element.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-        element.tintColor = .gray
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
+        let button = UIButton(type: .system)
+        button.setTitle("Мужской", for: .normal)
+        button.backgroundColor = .lightText
+        button.layer.cornerRadius = 15
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        button.tintColor = .gray
+        button.addTarget(self, action: #selector(maleButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private lazy var femaleButton: UIButton = {
-        let element = UIButton(type: .system)
-        element.setTitle("Женский", for: .normal)
-        element.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
-        element.backgroundColor = .lightText
-        element.layer.cornerRadius = 15
-        element.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-        element.tintColor = .gray
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
+        let button = UIButton(type: .system)
+        button.setTitle("Женский", for: .normal)
+        button.backgroundColor = .lightText
+        button.layer.cornerRadius = 15
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        button.tintColor = .gray
+        button.addTarget(self, action: #selector(femaleButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
-    
-    private lazy var registerButtonStackView: UIStackView = {
-        let element = UIStackView()
-        element.axis = .horizontal
-        element.distribution = .fillEqually
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private lazy var spacer1: UIView = {
-        let element = UIView()
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
-    private lazy var spacer2: UIView = {
-        let element = UIView()
-        
-        element.translatesAutoresizingMaskIntoConstraints = false
-        return element
-    }()
-    
+
     private lazy var registerButton: UIButton = {
         let element = UIButton(type: .system)
-        element.setTitle("Зарегистрироваться", for: .normal)
-        element.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
+        element.setTitle("Регистрация", for: .normal)
         element.backgroundColor = .lightText
         element.layer.cornerRadius = 15
         element.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         element.tintColor = .gray
-        
+        element.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -200,7 +128,6 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Открыт RegisterVC")
         
         let gradientLayer = Colors.angularGradientLayerSetupGoal(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -208,12 +135,14 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
         
-        setView()
+        setupView()
         setupConstraints()
     }
-    private func setView() {
+    
+    private func setupView() {
         view.addSubview(bgView)
         view.addSubview(mainStackView)
+        
         mainStackView.addArrangedSubview(helloTextLabel)
         mainStackView.addArrangedSubview(descriptionTextLabel)
         mainStackView.addArrangedSubview(nameTextField)
@@ -221,26 +150,50 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
         mainStackView.addArrangedSubview(passwordTextField)
         mainStackView.addArrangedSubview(passwordDoubleTextField)
         mainStackView.addArrangedSubview(genderLabel)
-        mainStackView.addArrangedSubview(genderButtonStackView)
+        
         genderButtonStackView.addArrangedSubview(maleButton)
         genderButtonStackView.addArrangedSubview(femaleButton)
-        mainStackView.addArrangedSubview(registerButtonStackView)
-        registerButtonStackView.addArrangedSubview(spacer1)
-        registerButtonStackView.addArrangedSubview(registerButton)
-        registerButtonStackView.addArrangedSubview(spacer2)
+        mainStackView.addArrangedSubview(genderButtonStackView)
+        mainStackView.addArrangedSubview(registerButton)
         mainStackView.addArrangedSubview(haveAccountButton)
-        
-        
     }
     
-    // MARK: - Actions
+    private func choiceGender() {
+        print("Перекрашивание кнопок пола")
+        if gender == true {
+            maleButton.backgroundColor = .systemBlue
+            maleButton.setTitleColor(.white, for: .normal)
+            femaleButton.backgroundColor = .lightText
+            femaleButton.setTitleColor( .gray, for: .normal)
+        } else {
+            femaleButton.backgroundColor = .systemPink
+            femaleButton.setTitleColor(.white, for: .normal)
+            maleButton.backgroundColor = .lightText
+            maleButton.setTitleColor( .gray, for: .normal)
+        }
+    }
     
-    @objc private func registerButtonTapped() {
-        print("LoginVC: Кнопка Зарегистрироваться нажата")
+    @objc private func maleButtonTapped() {
+        print("RegistrVC: Выбран пол - Мужской")
+        gender = true
+        choiceGender()
+    }
+    
+    @objc private func femaleButtonTapped() {
+        print("RegistrVC: Выбран пол - Женский")
+        gender = false
+        choiceGender()
     }
     
     @objc private func haveAccountButtonTapped() {
-        print("LoginVC: Кнопка Есть аккаунт нажата")
+        print("RegistrVC: Кнопка Есть аккаунт нажата")
+        let loginVC = LoginViewController()
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true)
+    }
+    
+    @objc private func registerButtonTapped() {
+        print("RegistrVC: Кнопка Регистрация нажата")
     }
     
     @objc private func dismissKeyboard() {
@@ -248,11 +201,9 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder() // Скрыть клавиатуру при нажатии "Done"
+        textField.resignFirstResponder()
         return true
     }
-    
-    
 }
 
 // MARK: - Constraints
@@ -269,7 +220,21 @@ extension RegistrationViewController {
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            nameTextField.heightAnchor.constraint(equalToConstant: 60),
+            emailTextField.heightAnchor.constraint(equalToConstant: 60),
+            emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 60),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
+            passwordDoubleTextField.heightAnchor.constraint(equalToConstant: 60),
+            passwordDoubleTextField.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 10),
+            genderButtonStackView.heightAnchor.constraint(equalToConstant: 50),
+            genderButtonStackView.topAnchor.constraint(equalTo: genderLabel.bottomAnchor, constant: 15),
+            registerButton.heightAnchor.constraint(equalToConstant: 50),
+            registerButton.bottomAnchor.constraint(equalTo: haveAccountButton.topAnchor, constant: -80),
+            haveAccountButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            
+            
         ])
     }
 }
-
