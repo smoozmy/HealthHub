@@ -38,6 +38,11 @@ final class LoginViewController: UIViewController {
     private lazy var emailTextField: UITextField = {
         let element = UITextField()
         element.placeholder = "Введи email"
+        
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: element.frame.height))
+        element.leftView = leftPaddingView
+        element.leftViewMode = .always
+        
         element.backgroundColor = .white
         element.layer.cornerRadius = 12
         
@@ -48,6 +53,11 @@ final class LoginViewController: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let element = UITextField()
         element.placeholder = "Введи пароль"
+        
+        let leftPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: element.frame.height))
+        element.leftView = leftPaddingView
+        element.leftViewMode = .always
+        
         element.backgroundColor = .white
         element.layer.cornerRadius = 12
         
