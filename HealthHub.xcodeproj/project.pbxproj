@@ -11,6 +11,7 @@
 		6FDDFFDD2CD61B040068FC63 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDDFFDC2CD61B040068FC63 /* SceneDelegate.swift */; };
 		6FDDFFE42CD61B050068FC63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FDDFFE32CD61B050068FC63 /* Assets.xcassets */; };
 		6FDDFFE72CD61B050068FC63 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6FDDFFE62CD61B050068FC63 /* Base */; };
+		6FDDFFFE2CD6235B0068FC63 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDDFFFD2CD6235B0068FC63 /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,13 +21,16 @@
 		6FDDFFE32CD61B050068FC63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FDDFFE62CD61B050068FC63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6FDDFFE82CD61B050068FC63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6FDDFFFD2CD6235B0068FC63 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
 		6FDDFFF62CD61F950068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ViewController.swift,
+				LoginViewController.swift,
+				RegistrationViewController.swift,
+				WelcomeViewController.swift,
 			);
 			target = 6FDDFFD62CD61B040068FC63 /* HealthHub */;
 		};
@@ -90,6 +94,7 @@
 				6FDDFFE32CD61B050068FC63 /* Assets.xcassets */,
 				6FDDFFE52CD61B050068FC63 /* LaunchScreen.storyboard */,
 				6FDDFFE82CD61B050068FC63 /* Info.plist */,
+				6FDDFFFD2CD6235B0068FC63 /* Colors.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -164,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FDDFFFE2CD6235B0068FC63 /* Colors.swift in Sources */,
 				6FDDFFDB2CD61B040068FC63 /* AppDelegate.swift in Sources */,
 				6FDDFFDD2CD61B040068FC63 /* SceneDelegate.swift in Sources */,
 			);
@@ -311,7 +317,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q8YPLYNT34;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HealthHub/Info.plist;
+				INFOPLIST_FILE = HealthHub/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -343,7 +349,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Q8YPLYNT34;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HealthHub/Info.plist;
+				INFOPLIST_FILE = HealthHub/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
