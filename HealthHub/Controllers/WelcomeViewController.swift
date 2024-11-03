@@ -37,7 +37,7 @@ final class WelcomeViewController: UIViewController {
     private lazy var registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Зарегистрироваться", for: .normal)
-        button.backgroundColor = .white
+        button.backgroundColor = .lightText
         button.layer.cornerRadius = 15
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.systemIndigo.cgColor

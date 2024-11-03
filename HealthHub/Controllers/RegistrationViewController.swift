@@ -24,7 +24,8 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var helloTextLabel: UILabel = {
         let element = UILabel()
-        element.text = "Привет!"
+        element.text = "Привет, мир!"
+        element.textColor = .clear
         element.textAlignment = .center
         element.font = .systemFont(ofSize: 22, weight: .semibold)
         element.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +36,7 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
         let element = UILabel()
         element.text = "Пройди регистрацию\nи настрой свою цель"
         element.textAlignment = .center
-        element.font = .systemFont(ofSize: 18, weight: .medium)
+        element.font = .systemFont(ofSize: 20, weight: .medium)
         element.numberOfLines = 0
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
