@@ -6,6 +6,9 @@ final class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Открыт RegisterVC")
+        
+        view.backgroundColor = .red
         
         setView()
         setupConstraints()

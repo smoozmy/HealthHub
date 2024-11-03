@@ -3,7 +3,7 @@ import UIKit
 //AngularGradient(colors: [.indigo, .mint, .purple, .cyan], center: .bottomLeading)
 
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI and Lyfe Cycle
     private lazy var bgView: UIView = {
@@ -46,6 +46,9 @@ final class LoginViewController: UIViewController {
         element.backgroundColor = .white
         element.layer.cornerRadius = 12
         
+        element.returnKeyType = .done
+        element.delegate = self
+        
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -60,6 +63,9 @@ final class LoginViewController: UIViewController {
         
         element.backgroundColor = .white
         element.layer.cornerRadius = 12
+        
+        element.returnKeyType = .done
+        element.delegate = self
         
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
@@ -135,9 +141,13 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Открыт LoginVC")
         
         let gradientLayer = Colors.angularGradientLayerSetupGoal(bounds: view.bounds)
-                view.layer.insertSublayer(gradientLayer, at: 0)
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
         
         
         
@@ -171,6 +181,20 @@ final class LoginViewController: UIViewController {
     
     @objc private func createAccountButtonTapped() {
         print("LoginVC: Кнопка Создать УЗ нажата")
+        print("LoginVC: Выполняется переход на RegisterVC")
+        
+        let registerVC = RegistrationViewController()
+        registerVC.modalPresentationStyle = .fullScreen
+        present(registerVC, animated: true)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Скрыть клавиатуру при нажатии "Done"
+        return true
     }
     
 }
