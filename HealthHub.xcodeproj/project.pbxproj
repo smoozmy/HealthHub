@@ -25,10 +25,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6FDD00042CD7A45B0068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				StorageManager.swift,
+			);
+			target = 6FDDFFD62CD61B040068FC63 /* HealthHub */;
+		};
 		6FDDFFF62CD61F950068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				LoginViewController.swift,
+				ProfileViewController.swift,
 				RegistrationViewController.swift,
 				WelcomeViewController.swift,
 			);
@@ -40,7 +48,7 @@
 		6FDDFFEF2CD61F190068FC63 /* Controllers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6FDDFFF62CD61F950068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Controllers; sourceTree = "<group>"; };
 		6FDDFFF02CD61F260068FC63 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
 		6FDDFFF12CD61F2E0068FC63 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		6FDDFFF32CD61F3F0068FC63 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
+		6FDDFFF32CD61F3F0068FC63 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6FDD00042CD7A45B0068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 		6FDDFFF42CD61F4E0068FC63 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
 		6FDDFFF82CD61FA70068FC63 /* ViewModels */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ViewModels; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */

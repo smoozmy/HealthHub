@@ -173,6 +173,24 @@ final class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func loginButtonTapped() {
         print("LoginVC: Кнопка Войти нажата")
+        
+        guard let email = emailTextField.text,
+                  let password = passwordTextField.text else { return }
+
+            // Получаем сохраненные данные из UserDefaults
+            let savedEmail = UserDefaults.standard.string(forKey: "email")
+            let savedPassword = UserDefaults.standard.string(forKey: "password")
+
+            // Проверяем данные
+            if email == savedEmail && password == savedPassword {
+                // Успешный вход, переходим на экран профиля
+                let profileVC = ProfileViewController()
+                profileVC.modalPresentationStyle = .fullScreen
+                present(profileVC, animated: true)
+            } else {
+                // Выводим сообщение об ошибке
+                print("Неверный email или пароль")
+            }
     }
     
     @objc private func forgottenPasswordButtonTapped() {

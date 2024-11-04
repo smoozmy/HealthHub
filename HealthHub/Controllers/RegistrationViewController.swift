@@ -195,6 +195,22 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func registerButtonTapped() {
         print("RegistrVC: Кнопка Регистрация нажата")
+        
+        guard let name = nameTextField.text,
+              let email = emailTextField.text,
+              let password = passwordTextField.text
+        else { return }
+        
+        UserDefaults.standard.set(name, forKey: "name")
+        UserDefaults.standard.set(email, forKey: "email")
+        UserDefaults.standard.set(password, forKey: "password")
+        UserDefaults.standard.set(gender, forKey: "gender")
+        
+        let profileVC = ProfileViewController()
+        profileVC.modalPresentationStyle = .fullScreen
+        present(profileVC, animated: true)
+        
+        
     }
     
     @objc private func dismissKeyboard() {
