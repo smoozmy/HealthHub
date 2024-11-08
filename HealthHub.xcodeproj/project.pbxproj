@@ -41,6 +41,7 @@
 				LoginViewController.swift,
 				ProfileViewController.swift,
 				RegistrationViewController.swift,
+				WeighInViewController.swift,
 				WelcomeViewController.swift,
 			);
 			target = 6FDDFFD62CD61B040068FC63 /* HealthHub */;

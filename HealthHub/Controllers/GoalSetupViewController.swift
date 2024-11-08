@@ -142,24 +142,18 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
         stepTitleLabel = createTitleLabel(text: "Выберите вашу цель")
         let options = ["Похудение", "Поддержание веса", "Набор веса"]
         verticalStackView = createVerticalButtonStack(options: options, action: #selector(goalTypeSelected(_:)))
-        contentView.addSubview(stepTitleLabel)
-        contentView.addSubview(verticalStackView)
         setupStepConstraints()
     }
     
     private func showCurrentWeightStep() {
         stepTitleLabel = createTitleLabel(text: "Введите ваш текущий вес (кг)")
         textField = createTextField(placeholder: "Вес в кг", text: userGoal.currentWeight != nil ? "\(userGoal.currentWeight!)" : "")
-        contentView.addSubview(stepTitleLabel)
-        contentView.addSubview(textField)
         setupStepConstraints()
     }
     
     private func showHeightStep() {
         stepTitleLabel = createTitleLabel(text: "Введите ваш рост (см)")
         textField = createTextField(placeholder: "Рост в см", text: userGoal.height != nil ? "\(userGoal.height!)" : "")
-        contentView.addSubview(stepTitleLabel)
-        contentView.addSubview(textField)
         setupStepConstraints()
     }
     
@@ -172,8 +166,6 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
             datePicker.date = birthDate
         }
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stepTitleLabel)
-        contentView.addSubview(datePicker)
         setupStepConstraints()
     }
     
@@ -181,8 +173,6 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
         stepTitleLabel = createTitleLabel(text: "Выберите уровень активности")
         let options = ["Малоподвижный", "Лёгкая активность", "Средняя активность", "Высокая активность", "Очень высокая активность"]
         verticalStackView = createVerticalButtonStack(options: options, action: #selector(activityLevelSelected(_:)))
-        contentView.addSubview(stepTitleLabel)
-        contentView.addSubview(verticalStackView)
         setupStepConstraints()
     }
     
@@ -231,13 +221,10 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func setupStepConstraints() {
-        // Remove existing constraints and subviews
+        // Удаляем предыдущие элементы
         contentView.subviews.forEach { $0.removeFromSuperview() }
         
-        // Add stepTitleLabel to contentView
         contentView.addSubview(stepTitleLabel)
-        
-        // Set constraints for stepTitleLabel
         NSLayoutConstraint.activate([
             stepTitleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             stepTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -248,7 +235,6 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
         
         switch currentStep {
         case .goalType, .activityLevel:
-            // Add verticalStackView to contentView
             contentView.addSubview(verticalStackView)
             NSLayoutConstraint.activate([
                 verticalStackView.topAnchor.constraint(equalTo: stepTitleLabel.bottomAnchor, constant: 16),
@@ -256,7 +242,6 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
                 verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
             ])
         case .currentWeight, .height:
-            // Add textField to contentView
             contentView.addSubview(textField)
             NSLayoutConstraint.activate([
                 textField.topAnchor.constraint(equalTo: stepTitleLabel.bottomAnchor, constant: 16),
@@ -265,7 +250,6 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
                 textField.heightAnchor.constraint(equalToConstant: 44)
             ])
         case .birthDate:
-            // Add datePicker to contentView
             contentView.addSubview(datePicker)
             NSLayoutConstraint.activate([
                 datePicker.topAnchor.constraint(equalTo: stepTitleLabel.bottomAnchor, constant: 16),
@@ -274,7 +258,6 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
             ])
         }
     }
-
     
     // MARK: - Actions
     
@@ -321,14 +304,14 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
                 return false
             }
         case .currentWeight:
-            if let text = textField.text, let weight = Double(text), weight > 0 && weight < 500 {
+            if let text = textField.text, let weight = Decimal(string: text), weight > 0 && weight < 500 {
                 userGoal.currentWeight = weight
             } else {
                 showError("Пожалуйста, введите корректный вес.")
                 return false
             }
         case .height:
-            if let text = textField.text, let height = Double(text), height > 50 && height < 300 {
+            if let text = textField.text, let height = Decimal(string: text), height > 50 && height < 300 {
                 userGoal.height = height
             } else {
                 showError("Пожалуйста, введите корректный рост.")
@@ -367,8 +350,8 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func calculateBMRAndCalories() {
-        guard let weight = userGoal.currentWeight,
-              let height = userGoal.height,
+        guard let weightDecimal = userGoal.currentWeight,
+              let heightDecimal = userGoal.height,
               let birthDate = userGoal.birthDate,
               let activityLevel = userGoal.activityLevel,
               let goalType = userGoal.goalType else {
@@ -377,6 +360,11 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
         
         let age = calculateAge(birthDate: birthDate)
         let gender = getUserGender()
+        
+        // Преобразуем Decimal в Double для расчетов
+        let weight = NSDecimalNumber(decimal: weightDecimal).doubleValue
+        let height = NSDecimalNumber(decimal: heightDecimal).doubleValue
+        
         var bmr: Double = 0
         
         if gender == "Мужской" {
@@ -414,7 +402,12 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
             caloricIntake = tdee
         }
         
-        userGoal.caloricIntake = caloricIntake
+        userGoal.caloricIntake = Decimal(caloricIntake)
+        
+        // Устанавливаем начальный вес, если он еще не установлен
+        if userGoal.startingWeight == nil {
+            userGoal.startingWeight = userGoal.currentWeight
+        }
     }
     
     private func getUserGender() -> String {
@@ -448,14 +441,6 @@ final class GoalSetupViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-// MARK: - Helper Extensions
-
-extension NSLayoutConstraint {
-    func constraintIfExists() -> NSLayoutConstraint? {
-        return self.firstItem == nil ? nil : self
-    }
-}
-
 enum GoalSetupStep {
     case goalType
     case currentWeight
@@ -463,4 +448,5 @@ enum GoalSetupStep {
     case birthDate
     case activityLevel
 }
+
 
