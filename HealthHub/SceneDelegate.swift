@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     let welcomeVC = WelcomeViewController()
                     window?.rootViewController = welcomeVC
                 }
-//        window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: GoalSetupViewController())
         window?.makeKeyAndVisible()
     }
 }

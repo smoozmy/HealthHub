@@ -30,12 +30,14 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				User.swift,
+				UserGoal.swift,
 			);
 			target = 6FDDFFD62CD61B040068FC63 /* HealthHub */;
 		};
 		6FDDFFF62CD61F950068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				GoalSetupViewController.swift,
 				LoginViewController.swift,
 				ProfileViewController.swift,
 				RegistrationViewController.swift,

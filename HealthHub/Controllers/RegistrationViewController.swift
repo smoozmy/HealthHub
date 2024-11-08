@@ -240,9 +240,9 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
         
         // Переходим на экран профиля
-        let profileVC = ProfileViewController()
-        profileVC.modalPresentationStyle = .fullScreen
-        present(profileVC, animated: true)
+        let goalVC = GoalSetupViewController()
+        goalVC.modalPresentationStyle = .fullScreen
+        present(goalVC, animated: true)
     }
 
     
