@@ -2,6 +2,8 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
+    var currentUser: User?
+    
     let name = UserDefaults.standard.string(forKey: "name") ?? "Пользователь"
     let email = UserDefaults.standard.string(forKey: "email") ?? "Почта"
     let password = UserDefaults.standard.string(forKey: "password") ?? "Пароль"
@@ -67,6 +69,20 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemMint
         
+        
+        if let email = UserDefaults.standard.string(forKey: "currentUserEmail"),
+           let data = UserDefaults.standard.data(forKey: "users"),
+           let users = try? JSONDecoder().decode([User].self, from: data) {
+            currentUser = users.first(where: { $0.email == email })
+        }
+        
+        // Обновляем UI с данными пользователя
+        if let user = currentUser {
+            helloLabel.text = "Привет, \(user.name)"
+            emailLabel.text = "Твой email: \(user.email)"
+            passwordLabel.text = "Твой пароль: \(user.password)"
+            genderLabel.text = "Твой пол: \(user.gender)"
+        }
     
         
         setView()
@@ -85,11 +101,9 @@ final class ProfileViewController: UIViewController {
 
     
     @objc private func logout() {
-//        UserDefaults.standard.removeObject(forKey: "name")
-//           UserDefaults.standard.removeObject(forKey: "email")
-//           UserDefaults.standard.removeObject(forKey: "password")
-           
-           // Возврат на экран авторизации
+        UserDefaults.standard.set(nil, forKey: "currentUserEmail")
+        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+
         let welcomeVC = WelcomeViewController()
         welcomeVC.modalPresentationStyle = .fullScreen
         present(welcomeVC, animated: false)

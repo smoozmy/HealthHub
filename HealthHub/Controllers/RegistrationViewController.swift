@@ -2,7 +2,7 @@ import UIKit
 
 final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
-    var gender = true
+    var gender = ""
     
     // MARK: - UI and Lifecycle
     
@@ -161,7 +161,7 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     private func choiceGender() {
         print("Перекрашивание кнопок пола")
-        if gender == true {
+        if gender == "Мужской" {
             maleButton.backgroundColor = .systemBlue
             maleButton.setTitleColor(.white, for: .normal)
             femaleButton.backgroundColor = .lightText
@@ -176,13 +176,13 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     @objc private func maleButtonTapped() {
         print("RegistrVC: Выбран пол - Мужской")
-        gender = true
+        gender = "Мужской"
         choiceGender()
     }
     
     @objc private func femaleButtonTapped() {
         print("RegistrVC: Выбран пол - Женский")
-        gender = false
+        gender = "Женский"
         choiceGender()
     }
     
@@ -198,20 +198,53 @@ final class RegistrationViewController: UIViewController, UITextFieldDelegate {
         
         guard let name = nameTextField.text,
               let email = emailTextField.text,
-              let password = passwordTextField.text
-        else { return }
+              let password = passwordTextField.text,
+              let passwordConfirm = passwordDoubleTextField.text,
+              !name.isEmpty, !email.isEmpty, !password.isEmpty, !passwordConfirm.isEmpty
+        else {
+            print("Заполните все поля")
+            return
+        }
         
-        UserDefaults.standard.set(name, forKey: "name")
-        UserDefaults.standard.set(email, forKey: "email")
-        UserDefaults.standard.set(password, forKey: "password")
-        UserDefaults.standard.set(gender, forKey: "gender")
+        guard password == passwordConfirm else {
+            print("Пароли не совпадают")
+            return
+        }
         
+        // Создаем нового пользователя
+        let newUser = User(id: UUID().uuidString, name: name, email: email, password: password, gender: gender)
+        
+        // Получаем текущий список пользователей из UserDefaults
+        var users = [User]()
+        if let data = UserDefaults.standard.data(forKey: "users"),
+           let savedUsers = try? JSONDecoder().decode([User].self, from: data) {
+            users = savedUsers
+        }
+        
+        // Проверяем, существует ли уже пользователь с таким email
+        if users.contains(where: { $0.email == email }) {
+            print("Пользователь с таким email уже существует")
+            return
+        }
+        
+        // Добавляем нового пользователя в массив
+        users.append(newUser)
+        
+        // Сохраняем обновленный массив пользователей
+        if let data = try? JSONEncoder().encode(users) {
+            UserDefaults.standard.set(data, forKey: "users")
+        }
+        
+        // Сохраняем информацию о текущем пользователе
+        UserDefaults.standard.set(newUser.email, forKey: "currentUserEmail")
+        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        
+        // Переходим на экран профиля
         let profileVC = ProfileViewController()
         profileVC.modalPresentationStyle = .fullScreen
         present(profileVC, animated: true)
-        
-        
     }
+
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
