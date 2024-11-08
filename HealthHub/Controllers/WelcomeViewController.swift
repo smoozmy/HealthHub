@@ -56,8 +56,12 @@ final class WelcomeViewController: UIViewController {
         setupView()
         setupConstraints()
         
+        let documentUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        
         let gradientLayer = Colors.angularGradientLayerSetupGoal(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        print("UD", documentUrl)
     }
     
     private func setupView() {

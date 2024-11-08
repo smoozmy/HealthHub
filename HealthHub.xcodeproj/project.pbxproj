@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F98DE912CDD168E00555510 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 6F98DE902CDD168E00555510 /* SQLite */; };
 		6FDDFFDB2CD61B040068FC63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDDFFDA2CD61B040068FC63 /* AppDelegate.swift */; };
 		6FDDFFDD2CD61B040068FC63 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDDFFDC2CD61B040068FC63 /* SceneDelegate.swift */; };
 		6FDDFFE42CD61B050068FC63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FDDFFE32CD61B050068FC63 /* Assets.xcassets */; };
@@ -25,10 +26,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6F98DEA22CDE0B1800555510 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				User.swift,
+			);
+			target = 6FDDFFD62CD61B040068FC63 /* HealthHub */;
+		};
 		6FDDFFF62CD61F950068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				LoginViewController.swift,
+				ProfileViewController.swift,
 				RegistrationViewController.swift,
 				WelcomeViewController.swift,
 			);
@@ -38,7 +47,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6FDDFFEF2CD61F190068FC63 /* Controllers */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6FDDFFF62CD61F950068FC63 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Controllers; sourceTree = "<group>"; };
-		6FDDFFF02CD61F260068FC63 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		6FDDFFF02CD61F260068FC63 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (6F98DEA22CDE0B1800555510 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
 		6FDDFFF12CD61F2E0068FC63 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		6FDDFFF32CD61F3F0068FC63 /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 		6FDDFFF42CD61F4E0068FC63 /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
@@ -50,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F98DE912CDD168E00555510 /* SQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +153,9 @@
 				Base,
 			);
 			mainGroup = 6FDDFFCE2CD61B040068FC63;
+			packageReferences = (
+				6F98DE8F2CDD168E00555510 /* XCRemoteSwiftPackageReference "SQLite" */,
+			);
 			productRefGroup = 6FDDFFD82CD61B040068FC63 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -394,6 +407,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6F98DE8F2CDD168E00555510 /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6F98DE902CDD168E00555510 /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F98DE8F2CDD168E00555510 /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6FDDFFCF2CD61B040068FC63 /* Project object */;
 }
